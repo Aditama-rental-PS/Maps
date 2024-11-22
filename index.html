@@ -1,16 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Map</title>
-  <link rel="stylesheet" href="https://maps.app.goo.gl/FsEXhNrejd9vgzBT8 />
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Google Maps</title>
+    <style>
+        /* Gaya untuk peta agar memenuhi layar */
+        #map {
+            height: 100vh; /* Tinggi peta penuh layar */
+            width: 100%; /* Lebar peta penuh */
+        }
+    </style>
 </head>
 <body>
-  <div id="map"></div>
+    <h1>Halaman Google Maps</h1>
+    <div id="map"></div>
 
-  <script src="https://maps.app.goo.gl/FsEXhNrejd9vgzBT8 /"></script>
-  <script src="script.js"></script>
+    <script>
+        // Inisialisasi peta
+        function initMap() {
+            const lokasi = { lat: -6.200000, lng: 106.816666 }; // Koordinat Jakarta
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 13,
+                center: lokasi,
+            });
+
+            // Tambahkan marker di lokasi tertentu
+            const marker = new google.maps.Marker({
+                position: lokasi,
+                map: map,
+                title: "Jakarta",
+            });
+
+            // Tambahkan info window
+            const infoWindow = new google.maps.InfoWindow({
+                content: "<b>BAndung</b><br>Ini adalah Rental PS Aditama.",
+            });
+
+            // Tampilkan info window saat marker diklik
+            marker.addListener("click", () => {
+                infoWindow.open(map, marker);
+            });
+
+            // Tambahkan event untuk klik peta
+            map.addListener("click", (event) => {
+                alert(`Koordinat yang diklik: ${event.latLng.lat()}, ${event.latLng.lng()}`);
+            });
+        }
+    </script>
+
+    <!-- Tambahkan Google Maps API dengan kunci Anda -->
+    <script src="https://maps.app.goo.gl/Z6Yuj76T4rXq9nMu6" async defer></script>
 </body>
 </html>
